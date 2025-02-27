@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外部ブラウザで開く</title>
+    <script>
+        function redirectToBrowser() {
+            const ua = navigator.userAgent.toLowerCase();
+            const url = "https://script.google.com/macros/s/AKfycbz5USOUV7MxKic1C1OrbgoLjopD0I5LtD1NTMCdnUyBCGvDUHQIlpCaGeZpTyEB_Sa-/exec";
+
+            // LINE や Messenger なら外部ブラウザで開く
+            if (ua.includes("line") || ua.includes("fbav") || ua.includes("fban")) {
+                alert("外部ブラウザで開きます。開かない場合は手動で開いてください。");
+
+                // AndroidならGoogle Chromeで開く
+                if (ua.includes("android")) {
+                    window.location.href = "googlechrome://navigate?url=" + url;
+                } 
+                // iOSならSafariで開く
+                else if (ua.includes("iphone") || ua.includes("ipad")) {
+                    window.location.href = url;
+                } 
+                // それ以外なら通常のリダイレクト
+                else {
+                    window.location.href = url;
+                }
+            } else {
+                // 通常のブラウザならそのまま開く
+                window.location.href = url;
+            }
+        }
+
+        window.onload = redirectToBrowser;
+    </script>
+</head>
+<body>
+    <p>リダイレクト中...</p>
+</body>
+</html>
